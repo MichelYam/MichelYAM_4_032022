@@ -47,21 +47,28 @@ const dateError = document.getElementById('date-error');
 const quantityError = document.getElementById('quantity-error');
 const locationsError = document.getElementById('locations-error');
 const cguError = document.getElementById('cgu-error')
-
+let currentDate = new Date(); // get the current day
 
 const resetForm = document.getElementsByName("reserve")[0];
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const regexName = /^[a-zA-Z]+$/;
 
 const form = document.getElementById('reserve');
 // instance objet date
-let currentDate = new Date(); // get the current day
 
 //check first name
 const checkFirstName = () => {
   if (isEmpty(firstName)) {
     showError(firstNameError, "Veuillez saisir votre prénom");
-  } else {
+  }
+  else if (!firstName.value.match(regexName)) {
+    showError(firstNameError, "Veuillez utiliser les lettres de l'aphabet")
+  }
+  else if (firstName.value.length == 1) {
+    showError(firstNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
+  }
+  else {
     return true;
   }
 }
@@ -70,11 +77,17 @@ const checkFirstName = () => {
 const checklastName = () => {
   if (isEmpty(lastName)) {
     showError(lastNameError, "Veuillez entrez votre nom");
-  } else {
+  }
+  else if (!lastName.value.match(regexName)) {
+    showError(lastNameError, "Veuillez utiliser les lettres de l'aphabet")
+  }
+  else if (lastName.value.length == 1) {
+    showError(lastNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
+  }
+  else {
     return true;
   }
 }
-
 //check email 
 const checkEmail = () => {
   if (isEmpty(email)) {
@@ -86,24 +99,23 @@ const checkEmail = () => {
   }
 }
 // get user age
-function getAge(dateUser) {
-  var currentYear = currentDate.getFullYear();
-  age = currentYear - dateUser.getFullYear();
-  return age;
-}
+// function getAge(dateUser) {
+//   var currentYear = currentDate.getFullYear();
+//   age = currentYear - dateUser.getFullYear();
+//   return age;
+// }
 // check user age
-const checkBirthDate = (dateUser) => {
+const checkBirthDate = () => {
+  const dateUser = new Date(birthDate.value);
+  age = currentDate.getFullYear() - dateUser.getFullYear();
   if (isEmpty(birthDate)) {
-    showError(dateError, "Veuillez entrez votre date de naissance");
+    showError(dateError, "Vous devez entrer votre date de naissance.");
   }
   if (dateUser.getFullYear() <= 1900) {
     showError(dateError, "vous êtes immortel ?")
   }
   if (dateUser >= currentDate) {
     showError(dateError, "Vous venez du futur ?");
-  }
-  if (getAge(dateUser) >= 0 && getAge(dateUser) <= 15) {
-    showError(dateError, "Vous êtres trop jeune");
   } else {
     return true;
   }
@@ -126,7 +138,7 @@ const checkLocation = () => {
     }
   }
   if (city === "") {
-    showError(locationsError, "Veuillez selectionner une ville");
+    showError(locationsError, "Vous devez choisir une option.");
   } else {
     return true
   }
@@ -135,7 +147,7 @@ const checkLocation = () => {
 // check if user validate CGU
 const checkCGU = () => {
   if (!acceptCGU.checked) {
-    showError(cguError, "Veuillez accepter les conditions générales d'utilisation")
+    showError(cguError, "Vous devez vérifier que vous acceptez les termes et conditions.")
   } else {
     return true;
   }
@@ -157,30 +169,28 @@ function showError(input, message) {
 }
 
 // check if everythings is good
-form.addEventListener('submit', e => {
-  const dateUser = new Date(birthDate.value);
-  e.preventDefault();
+const validate = () => {
+  // const dateUser = new Date(birthDate.value);
   checkFirstName()
   checklastName()
   checkEmail()
-  checkBirthDate(dateUser)
+  checkBirthDate()
   checkPartipation()
   checkLocation()
   checkCGU()
 
-  if (checkFirstName() && checklastName() && checkEmail() && checkBirthDate(dateUser) && checkPartipation() && checkLocation() && checkCGU()) {
+  if (checkFirstName() && checklastName() && checkEmail() && checkBirthDate() && checkPartipation() && checkLocation() && checkCGU()) {
     modalSucces.style.display = "block";
     form.style.display = "none";
   }
-})
+  for (i = 0; i < formData.length; i++) {
+    const input = formData[i].querySelector("input");
+    const errorMsg = formData[i].querySelector(".error-message");
 
-for (i = 0; i < formData.length; i++) {
-  const inputBalise = formData[i].querySelector("input");
-  const errorBalise = formData[i].querySelector(".error-message");
-
-  inputBalise.addEventListener("change", e => {
-    errorBalise.style.display = "none";
-  })
+    input.addEventListener("change", e => {
+      errorMsg.style.display = "none";
+    })
+  }
 }
 // handle close modal succes message
 modalSuccesClose.addEventListener("click", (e) => {
@@ -189,4 +199,6 @@ modalSuccesClose.addEventListener("click", (e) => {
   form.style.display = "block";
   modalSucces.style.display = "none";
 })
-
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
