@@ -15,23 +15,6 @@ const modalClose = document.querySelector(".close");
 const modalSucces = document.querySelector(".modal-confimation");
 const modalSuccesClose = document.getElementById("modal-confimation__close");
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
-}
-
-// modal se ferme lorsqu'on clique sur la croix
-modalClose.addEventListener('click', e => {
-  resetForm.reset()
-  modalbg.style.display = "none";
-  form.style.display = "block";
-  modalSucces.style.display = "none";
-})
-
-// Submit
 const firstName = document.getElementById('first');
 const lastName = document.getElementById('last');
 const email = document.getElementById('email');
@@ -49,24 +32,83 @@ const locationsError = document.getElementById('locations-error');
 const cguError = document.getElementById('cgu-error')
 let currentDate = new Date(); // get the current day
 
-const resetForm = document.getElementsByName("reserve")[0];
-
+const reserveForm = document.getElementsByName("reserve")[0];
+const allErrorMsg = document.querySelectorAll(".error-message")
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const regexName = /^[a-zA-Z]+$/;
 
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// launch modal form
+function launchModal() {
+  modalbg.style.display = "block";
+  for (i = 0; i < formData.length; i++) {
+    const input = formData[i].querySelector("input");
+    const errorMsg = formData[i].querySelector(".error-message");
+
+    input.addEventListener("keydown", e => {
+      // errorMsg.style.display = "none";
+      // input.style.border = "none";
+      console.log(e.target.value);
+    })
+  }
+}
+
+// close modal form
+modalClose.addEventListener('click', e => {
+  resetForm();
+  modalbg.style.display = "none";
+  form.style.display = "block";
+  modalSucces.style.display = "none";
+})
+
+// handle close modal succes message
+modalSuccesClose.addEventListener("click", (e) => {
+  resetForm();
+  modalbg.style.display = "none";
+  form.style.display = "block";
+  modalSucces.style.display = "none";
+})
 const form = document.getElementById('reserve');
-// instance objet date
+
+const resetForm = () => {
+  reserveForm.reset();
+  // allErrorMsg.forEach(element => {
+  //   element.style.display = "none";
+  // })
+}
+
+// check empty input
+const isEmpty = (dataInput) => {
+  return !dataInput.value ? true : false;
+}
+
+// show a message in case of error or succes
+function showMessage(input, message, result) {
+  input.innerText = message;
+  // input.style.border = "3px red solid"; 
+  return result;
+}
+
+function showError(input, message) {
+  return showMessage(input, message, false);
+}
+
 
 //check first name
 const checkFirstName = () => {
   if (isEmpty(firstName)) {
     showError(firstNameError, "Veuillez saisir votre prénom");
+    firstName.style.border = "3px red solid";
   }
   else if (!firstName.value.match(regexName)) {
-    showError(firstNameError, "Veuillez utiliser les lettres de l'aphabet")
+    showError(firstNameError, "Veuillez utiliser des lettres")
+    firstName.style.border = "3px red solid";
   }
   else if (firstName.value.length == 1) {
     showError(firstNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
+    firstName.style.border = "3px red solid";
   }
   else {
     return true;
@@ -77,12 +119,15 @@ const checkFirstName = () => {
 const checklastName = () => {
   if (isEmpty(lastName)) {
     showError(lastNameError, "Veuillez entrez votre nom");
+    lastName.style.border = "3px red solid";
   }
   else if (!lastName.value.match(regexName)) {
-    showError(lastNameError, "Veuillez utiliser les lettres de l'aphabet")
+    showError(lastNameError, "Veuillez utiliser les lettres de l'aphabet");
+    lastName.style.border = "3px red solid";
   }
   else if (lastName.value.length == 1) {
-    showError(lastNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
+    showError(lastNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+    lastName.style.border = "3px red solid";
   }
   else {
     return true;
@@ -92,38 +137,40 @@ const checklastName = () => {
 const checkEmail = () => {
   if (isEmpty(email)) {
     showError(emailError, "Veuillez entrez votre adresse mail");
-  } else if (email.value.match(emailRegex)) {
-    return true;
-  } else {
+    email.style.border = "3px red solid";
+  } else if (!email.value.match(emailRegex)) {
     showError(emailError, "email invalide");
+    email.style.border = "3px red solid";
+  } else {
+    return true;
   }
 }
-// get user age
-// function getAge(dateUser) {
-//   var currentYear = currentDate.getFullYear();
-//   age = currentYear - dateUser.getFullYear();
-//   return age;
-// }
+
 // check user age
 const checkBirthDate = () => {
   const dateUser = new Date(birthDate.value);
   age = currentDate.getFullYear() - dateUser.getFullYear();
   if (isEmpty(birthDate)) {
     showError(dateError, "Vous devez entrer votre date de naissance.");
+    birthDate.style.border = "3px red solid";
   }
-  if (dateUser.getFullYear() <= 1900) {
+  else if (dateUser.getFullYear() <= 1900) {
     showError(dateError, "vous êtes immortel ?")
+    birthDate.style.border = "3px red solid";
   }
-  if (dateUser >= currentDate) {
+  else if (dateUser >= currentDate) {
     showError(dateError, "Vous venez du futur ?");
+    birthDate.style.border = "3px red solid";
   } else {
     return true;
   }
 }
+
 // check number of participation
 const checkPartipation = () => {
   if (isEmpty(quantity)) {
     showError(quantityError, "Veuillez entrez un nombre");
+    quantity.style.border = "3px red solid";
   } else {
     return true;
   }
@@ -153,24 +200,9 @@ const checkCGU = () => {
   }
 }
 
-// check empty input
-const isEmpty = (dataInput) => {
-  return !dataInput.value ? true : false;
-}
-
-// show a message in case of error or succes
-function showMessage(input, message, result) {
-  input.innerText = message;
-  return result;
-}
-
-function showError(input, message) {
-  return showMessage(input, message, false);
-}
-
 // check if everythings is good
 const validate = () => {
-  // const dateUser = new Date(birthDate.value);
+  // e.preventDefault();
   checkFirstName()
   checklastName()
   checkEmail()
@@ -183,22 +215,10 @@ const validate = () => {
     modalSucces.style.display = "block";
     form.style.display = "none";
   }
-  for (i = 0; i < formData.length; i++) {
-    const input = formData[i].querySelector("input");
-    const errorMsg = formData[i].querySelector(".error-message");
-
-    input.addEventListener("change", e => {
-      errorMsg.style.display = "none";
-    })
-  }
 }
-// handle close modal succes message
-modalSuccesClose.addEventListener("click", (e) => {
-  resetForm.reset()
-  modalbg.style.display = "none";
-  form.style.display = "block";
-  modalSucces.style.display = "none";
-})
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-});
+
+// evenement l'envoie du formulaire
+form.addEventListener("submit", (e) => e.preventDefault());
+
+
+// 3px #279e7a solid;
