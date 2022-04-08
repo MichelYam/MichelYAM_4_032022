@@ -102,7 +102,7 @@ img {
     margin-top: 20px;
   }
 
-  .topnav a {
+  .topnav .main-navbar a {
     display: none;
   }
 
@@ -111,7 +111,7 @@ img {
     display: block;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 18px;
   }
 }
 
