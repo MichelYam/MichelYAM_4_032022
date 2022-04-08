@@ -1,4 +1,4 @@
-
+//get all element for validation
 const firstName = document.getElementById('first');
 const lastName = document.getElementById('last');
 const email = document.getElementById('email');
@@ -22,7 +22,7 @@ const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\
 const regexName = /^[a-zA-Z]+$/;
 
 
-// check empty input
+// check if is empty
 const isEmpty = (dataInput) => {
   return !dataInput.value ? true : false;
 }
@@ -30,7 +30,7 @@ const isEmpty = (dataInput) => {
 // show a message in case of error or succes
 function showMessage(input, message, result) {
   input.innerText = message;
-  // input.style.border = "3px red solid"; 
+  input.style.display = "block"
   return result;
 }
 
@@ -45,21 +45,23 @@ const checkFirstName = () => {
     showError(firstNameError, "Veuillez saisir votre prénom");
     firstName.style.border = "3px red solid";
   }
+  else if (firstName.value.length < 2) {
+    showError(firstNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
+    firstName.style.border = "3px red solid";
+  }
   else if (!firstName.value.match(regexName)) {
     showError(firstNameError, "Veuillez utiliser des lettres")
     firstName.style.border = "3px red solid";
   }
-  else if (firstName.value.length == 1) {
-    showError(firstNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
-    firstName.style.border = "3px red solid";
-  }
   else {
+    firstName.style.border = "3px solid #279e7a";
+    firstNameError.style.display = "none";
     return true;
   }
 }
 
 //check last name
-const checklastName = () => {
+const checkLastName = () => {
   if (isEmpty(lastName)) {
     showError(lastNameError, "Veuillez entrez votre nom");
     lastName.style.border = "3px red solid";
@@ -73,6 +75,8 @@ const checklastName = () => {
     lastName.style.border = "3px red solid";
   }
   else {
+    lastName.style.border = "3px solid #279e7a";
+    lastNameError.style.display = "none";
     return true;
   }
 }
@@ -85,6 +89,8 @@ const checkEmail = () => {
     showError(emailError, "email invalide");
     email.style.border = "3px red solid";
   } else {
+    email.style.border = "3px solid #279e7a";
+    emailError.style.display = "none";
     return true;
   }
 }
@@ -105,6 +111,8 @@ const checkBirthDate = () => {
     showError(dateError, "Vous venez du futur ?");
     birthDate.style.border = "3px red solid";
   } else {
+    birthDate.style.border = "3px solid #279e7a";
+    dateError.style.display = "none";
     return true;
   }
 }
@@ -115,6 +123,8 @@ const checkPartipation = () => {
     showError(quantityError, "Veuillez entrez un nombre");
     quantity.style.border = "3px red solid";
   } else {
+    quantity.style.border = "3px solid #279e7a";
+    quantityError.style.display = "none";
     return true;
   }
 }
@@ -130,6 +140,7 @@ const checkLocation = () => {
   if (city === "") {
     showError(locationsError, "Vous devez choisir une option.");
   } else {
+    locationsError.style.display = "none";
     return true
   }
 }
@@ -139,23 +150,37 @@ const checkCGU = () => {
   if (!acceptCGU.checked) {
     showError(cguError, "Vous devez vérifier que vous acceptez les termes et conditions.")
   } else {
+    cguError.style.display = "none";
     return true;
   }
 }
 
-// check if everythings is good
-const validate = () => {
-  // e.preventDefault();
+// function formFieldsValidation(element, method, event) {
+//   element.addEventListener(event, method);
+// }
+firstName.addEventListener("input", checkFirstName);
+lastName.addEventListener("input", checkLastName);
+email.addEventListener("input", checkEmail);
+birthDate.addEventListener("input", checkBirthDate);
+quantity.addEventListener("input", checkPartipation);
+// locations.addEventListener("change", checkLocation);
+acceptCGU.addEventListener("change", checkCGU);
+
+
+// evenement l'envoie du formulaire
+form.addEventListener("submit", (e) => {
+  e.preventDefault()
   checkFirstName()
-  checklastName()
+  checkLastName()
   checkEmail()
   checkBirthDate()
   checkPartipation()
   checkLocation()
   checkCGU()
 
+  //check if all validators return true // if true 
   if (checkFirstName() && checklastName() && checkEmail() && checkBirthDate() && checkPartipation() && checkLocation() && checkCGU()) {
     modalSucces.style.display = "block";
     form.style.display = "none";
   }
-}
+});
