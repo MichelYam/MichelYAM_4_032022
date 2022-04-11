@@ -8,6 +8,7 @@ const locationCity = document.getElementsByName("location");
 const locations = document.getElementById("locations");
 const acceptCGU = document.getElementById('checkbox1');
 
+// all variables to display error messages
 const firstNameError = document.getElementById('first-error');
 const lastNameError = document.getElementById('last-error');
 const emailError = document.getElementById('email-error');
@@ -15,10 +16,10 @@ const dateError = document.getElementById('date-error');
 const quantityError = document.getElementById('quantity-error');
 const locationError = document.getElementById('locations-error');
 const cguError = document.getElementById('cgu-error')
+
 let currentDate = new Date(); // get the current day
 
 const reserveForm = document.getElementsByName("reserve")[0];
-const allErrorMsg = document.querySelectorAll(".error-message")
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const regexName = /^[a-zA-Z]+$/;
 
@@ -167,6 +168,8 @@ form.addEventListener("submit", (e) => {
   checkLocation()
   checkCGU()
 
+
+  // call fonction if something in input change (value, select, checkbox)
   firstName.addEventListener("input", checkFirstName);
   lastName.addEventListener("input", checkLastName);
   email.addEventListener("input", checkEmail);
@@ -175,7 +178,7 @@ form.addEventListener("submit", (e) => {
   locations.addEventListener("input", checkLocation);
   acceptCGU.addEventListener("input", checkCGU);
 
-  //check if all validators return true // if true 
+  //check if all validators return true // if true display succes message modal
   if (checkFirstName() && checkLastName() && checkEmail() && checkBirthDate() && checkPartipation() && checkLocation() && checkCGU()) {
     modalSucces.style.display = "block";
     form.style.display = "none";

@@ -127,8 +127,6 @@ img {
 
   .topnav.responsive .icon {
     position: absolute;
-    right: 0;
-    top: 0;
   }
 
   .topnav.responsive a {
@@ -459,6 +457,16 @@ input {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .topnav{
+    margin: 0 3.5%;
+  }
+  .bground {
+    background-color: #fff;
+    top: 80px;
+  }
 }
 
 /* custom select styles */
