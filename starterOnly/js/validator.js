@@ -21,8 +21,9 @@ let currentDate = new Date(); // get the current day
 
 const reserveForm = document.getElementsByName("reserve")[0];
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-// const regexName = /^[a-zA-Z]+$/;
-const regexName = /^[a-zA-Z\s]+$/;
+
+
+const regexName = /^[^@&"'`|°()!_$*€£`+=\/;?#]+$/;
 
 
 // check if is empty
