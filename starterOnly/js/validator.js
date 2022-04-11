@@ -4,7 +4,8 @@ const lastName = document.getElementById('last');
 const email = document.getElementById('email');
 const birthDate = document.getElementById('birthdate');
 const quantity = document.getElementById('quantity');
-const locations = document.getElementsByName("location");
+const locationCity = document.getElementsByName("location");
+const locations = document.getElementById("locations");
 const acceptCGU = document.getElementById('checkbox1');
 
 const firstNameError = document.getElementById('first-error');
@@ -12,7 +13,7 @@ const lastNameError = document.getElementById('last-error');
 const emailError = document.getElementById('email-error');
 const dateError = document.getElementById('date-error');
 const quantityError = document.getElementById('quantity-error');
-const locationsError = document.getElementById('locations-error');
+const locationError = document.getElementById('locations-error');
 const cguError = document.getElementById('cgu-error')
 let currentDate = new Date(); // get the current day
 
@@ -132,15 +133,15 @@ const checkPartipation = () => {
 // check tournamaent location
 const checkLocation = () => {
   var city = "";
-  for (let i = 0; i <= locations.length - 1; i++) {
-    if (locations[i].checked) {
-      city = locations[1].value;
+  for (let i = 0; i < locationCity.length; i++) {
+    if (locationCity[i].checked) {
+      city = locationCity[i].value;
     }
   }
   if (city === "") {
-    showError(locationsError, "Vous devez choisir une option.");
+    showError(locationError, "Vous devez choisir une option.");
   } else {
-    locationsError.style.display = "none";
+    locationError.style.display = "none";
     return true
   }
 }
@@ -155,18 +156,6 @@ const checkCGU = () => {
   }
 }
 
-// function formFieldsValidation(element, method, event) {
-//   element.addEventListener(event, method);
-// }
-firstName.addEventListener("input", checkFirstName);
-lastName.addEventListener("input", checkLastName);
-email.addEventListener("input", checkEmail);
-birthDate.addEventListener("input", checkBirthDate);
-quantity.addEventListener("input", checkPartipation);
-// locations.addEventListener("change", checkLocation);
-acceptCGU.addEventListener("change", checkCGU);
-
-
 // evenement l'envoie du formulaire
 form.addEventListener("submit", (e) => {
   e.preventDefault()
@@ -178,8 +167,16 @@ form.addEventListener("submit", (e) => {
   checkLocation()
   checkCGU()
 
+  firstName.addEventListener("input", checkFirstName);
+  lastName.addEventListener("input", checkLastName);
+  email.addEventListener("input", checkEmail);
+  birthDate.addEventListener("input", checkBirthDate);
+  quantity.addEventListener("input", checkPartipation);
+  locations.addEventListener("input", checkLocation);
+  acceptCGU.addEventListener("input", checkCGU);
+
   //check if all validators return true // if true 
-  if (checkFirstName() && checklastName() && checkEmail() && checkBirthDate() && checkPartipation() && checkLocation() && checkCGU()) {
+  if (checkFirstName() && checkLastName() && checkEmail() && checkBirthDate() && checkPartipation() && checkLocation() && checkCGU()) {
     modalSucces.style.display = "block";
     form.style.display = "none";
   }
