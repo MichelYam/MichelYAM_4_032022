@@ -19,10 +19,10 @@ const cguError = document.getElementById('cgu-error')
 
 let currentDate = new Date(); // get the current day
 
-const reserveForm = document.getElementsByName("reserve")[0];
+// regex handle email model
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-
+// regex for handle special characters
 const regexName = /^[^@&"'`|°()!_$*€£`+=\/;?#]+$/;
 
 
@@ -38,6 +38,7 @@ function showMessage(input, message, result) {
   return result;
 }
 
+// call function shoMessage to diplay a error message
 function showError(input, message) {
   return showMessage(input, message, false);
 }
@@ -145,7 +146,7 @@ const checkLocation = () => {
     showError(locationError, "Vous devez choisir une option.");
   } else {
     locationError.style.display = "none";
-    return true
+    return true;
   }
 }
 
@@ -170,8 +171,7 @@ form.addEventListener("submit", (e) => {
   checkLocation()
   checkCGU()
 
-
-  // call fonction if something in input change (value, select, checkbox)
+  // call fonction if input change (value, select, checkbox)
   firstName.addEventListener("input", checkFirstName);
   lastName.addEventListener("input", checkLastName);
   email.addEventListener("input", checkEmail);

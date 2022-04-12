@@ -15,8 +15,15 @@ const closeModal = document.querySelector(".close");
 const modalSucces = document.querySelector(".modal-confimation");
 const closeModalSucess = document.getElementById("modal-confimation__close");
 const form = document.getElementById('reserve');
+const reserveForm = document.getElementsByName("reserve")[0];
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// close modal form
+closeModal.addEventListener("click", resetForm)
+
+// close modal succes message
+closeModalSucess.addEventListener("click", resetForm)
 
 // launch modal form
 function launchModal() {
@@ -24,6 +31,7 @@ function launchModal() {
 }
 
 function resetForm() {
+  // reset form element defaults
   reserveForm.reset();
 
   // remove all border of inputs
@@ -38,9 +46,4 @@ function resetForm() {
   modalSucces.style.display = "none"; // remove message sucess
   form.style.display = "block"; //display form when user click
 }
-// close modal form
-closeModal.addEventListener("click", resetForm)
-
-// close modal succes message
-closeModalSucess.addEventListener("click", resetForm)
 
