@@ -555,13 +555,12 @@ input {
 }
 
 .hero-content {
-  padding: 51px 67px;
+  padding: 51px 41px;
   grid-column: span 4;
   background: #232323;
   color: #fff;
   position: relative;
   text-align: left;
-  /* min-width: 424px; */
   width: 100%;
 }
 
