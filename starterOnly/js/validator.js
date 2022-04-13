@@ -23,7 +23,7 @@ let currentDate = new Date(); // get the current day
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 // regex for handle special characters
-const regexName = /^[^@&"'`|°()!_$*€£`+=\/;?#]+$/;
+const regexName = /^[a-zA-Zéè\s]+$/;
 
 
 // check if the input is empty
