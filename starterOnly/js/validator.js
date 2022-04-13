@@ -26,7 +26,7 @@ const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\
 const regexName = /^[^@&"'`|°()!_$*€£`+=\/;?#]+$/;
 
 
-// check if is empty
+// check if the input is empty
 const isEmpty = (dataInput) => {
   return !dataInput.value ? true : false;
 }
@@ -38,7 +38,7 @@ function showMessage(input, message, result) {
   return result;
 }
 
-// call function shoMessage to diplay a error message
+// call function shoMessage to diplay an error message
 function showError(input, message) {
   return showMessage(input, message, false);
 }
@@ -163,6 +163,7 @@ const checkCGU = () => {
 // evenement l'envoie du formulaire
 form.addEventListener("submit", (e) => {
   e.preventDefault()
+  // call all validation function
   checkFirstName()
   checkLastName()
   checkEmail()

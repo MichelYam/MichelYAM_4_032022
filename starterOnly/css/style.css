@@ -111,7 +111,7 @@ img {
     display: block;
     position: absolute;
     right: 0;
-    top: 18px;
+    top: 0;
   }
 }
 
@@ -461,7 +461,7 @@ input {
 
 @media screen and (max-width: 425px) {
   .topnav {
-    margin: 0 3.5%;
+    margin: 6.5%;
   }
 
   .bground {
