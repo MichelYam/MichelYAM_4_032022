@@ -33,8 +33,8 @@ const isEmpty = (dataInput) => {
 
 // show a message in case of error or succes
 function showMessage(input, message, result) {
-  input.innerText = message;
-  input.style.display = "block"
+  input.innerText = message; //return the message in the html page
+  input.style.display = "block" // display red border 
   return result;
 }
 
@@ -172,7 +172,7 @@ form.addEventListener("submit", (e) => {
   checkLocation()
   checkCGU()
 
-  // call fonction if input change (value, select, checkbox)
+  //after event form called,  call event listener if input change (value, select, checkbox) recall fonction to check instantly the new value
   firstName.addEventListener("input", checkFirstName);
   lastName.addEventListener("input", checkLastName);
   email.addEventListener("input", checkEmail);
