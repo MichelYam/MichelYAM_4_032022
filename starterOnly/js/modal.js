@@ -18,12 +18,17 @@ const form = document.getElementById('reserve');
 const reserveForm = document.getElementsByName("reserve")[0];
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal form
 closeModal.addEventListener("click", resetForm)
 
 // close modal succes message
 closeModalSucess.addEventListener("click", resetForm)
+
+function handleResponsive(){
+
+}
 
 // launch modal form
 function launchModal() {

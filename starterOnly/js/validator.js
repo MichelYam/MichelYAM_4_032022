@@ -48,8 +48,8 @@ function showError(input, inputBorder, message) {
 }
 // call this function when all conditions return true , remove error messahe and replace the border red to green
 function sucess(input, inputBorder) {
-  input.classList.remove('displayError');
-  if (inputBorder !== false) {
+  input.classList.remove('displayError'); 
+  if (inputBorder !== false) { 
     inputBorder.classList.replace('border-red', 'border-green');
   }
 }
