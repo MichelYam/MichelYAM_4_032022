@@ -26,10 +26,6 @@ closeModal.addEventListener("click", resetForm)
 // close modal succes message
 closeModalSucess.addEventListener("click", resetForm)
 
-function handleResponsive(){
-
-}
-
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
