@@ -37,9 +37,7 @@ function resetForm() {
   // remove all border of inputs
   for (i = 0; i < formData.length; i++) {
     const input = formData[i].querySelector("input");
-    const errorMsg = formData[i].querySelector(".error-message");
-    input.style.border = "none";
-    errorMsg.style.display = "none";
+    input.classList.remove("border-green");
   }
 
   modalbg.style.display = "none"; // remove modal

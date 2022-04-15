@@ -32,35 +32,41 @@ const isEmpty = (dataInput) => {
 }
 
 // show a message in case of error or succes
-function showMessage(input, message, result) {
+function showMessage(input, inputBorder, message, result) {
   input.innerText = message; //return the message in the html page
-  input.style.display = "block" // display red border 
+  input.classList.add("displayError");
+  if (inputBorder !== false) {
+    inputBorder.classList.add('border-red');
+    inputBorder.classList.remove('border-green');
+  }
   return result;
 }
 
 // call function shoMessage to diplay an error message
-function showError(input, message) {
-  return showMessage(input, message, false);
+function showError(input, inputBorder, message) {
+  return showMessage(input, inputBorder, message, false);
 }
-
+// call this function when all conditions return true , remove error messahe and replace the border red to green
+function sucess(input, inputBorder) {
+  input.classList.remove('displayError');
+  if (inputBorder !== false) {
+    inputBorder.classList.replace('border-red', 'border-green');
+  }
+}
 
 //check first name
 const checkFirstName = () => {
   if (isEmpty(firstName)) {
-    showError(firstNameError, "Veuillez saisir votre prénom");
-    firstName.style.border = "3px red solid";
+    showError(firstNameError, firstName, "Veuillez saisir votre prénom");
   }
   else if (firstName.value.length < 2) {
-    showError(firstNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
-    firstName.style.border = "3px red solid";
+    showError(firstNameError, firstName, "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
   }
   else if (!firstName.value.match(regexName)) {
-    showError(firstNameError, "Veuillez utiliser des lettres")
-    firstName.style.border = "3px red solid";
+    showError(firstNameError, firstName, "Veuillez utiliser des lettres")
   }
   else {
-    firstName.style.border = "3px solid #279e7a";
-    firstNameError.style.display = "none";
+    sucess(firstNameError, firstName)
     return true;
   }
 }
@@ -68,34 +74,28 @@ const checkFirstName = () => {
 //check last name
 const checkLastName = () => {
   if (isEmpty(lastName)) {
-    showError(lastNameError, "Veuillez entrez votre nom");
-    lastName.style.border = "3px red solid";
+    showError(lastNameError, lastName, "Veuillez entrez votre nom");
   }
   else if (!lastName.value.match(regexName)) {
-    showError(lastNameError, "Veuillez utiliser les lettres de l'aphabet");
-    lastName.style.border = "3px red solid";
+    showError(lastNameError, lastName, "Veuillez utiliser les lettres de l'aphabet");
   }
   else if (lastName.value.length == 1) {
-    showError(lastNameError, "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
-    lastName.style.border = "3px red solid";
+    showError(lastNameError, lastName, "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
   }
   else {
-    lastName.style.border = "3px solid #279e7a";
-    lastNameError.style.display = "none";
+    sucess(lastNameError, lastName)
     return true;
+
   }
 }
 //check email 
 const checkEmail = () => {
   if (isEmpty(email)) {
-    showError(emailError, "Veuillez entrez votre adresse mail");
-    email.style.border = "3px red solid";
+    showError(emailError, email, "Veuillez entrez votre adresse mail");
   } else if (!email.value.match(emailRegex)) {
-    showError(emailError, "email invalide");
-    email.style.border = "3px red solid";
+    showError(emailError, email, "email invalide");
   } else {
-    email.style.border = "3px solid #279e7a";
-    emailError.style.display = "none";
+    sucess(emailError, email)
     return true;
   }
 }
@@ -105,19 +105,15 @@ const checkBirthDate = () => {
   const dateUser = new Date(birthDate.value);
   age = currentDate.getFullYear() - dateUser.getFullYear();
   if (isEmpty(birthDate)) {
-    showError(dateError, "Vous devez entrer votre date de naissance.");
-    birthDate.style.border = "3px red solid";
+    showError(dateError, birthDate, "Vous devez entrer votre date de naissance.");
   }
   else if (dateUser.getFullYear() <= 1900) {
-    showError(dateError, "vous êtes immortel ?")
-    birthDate.style.border = "3px red solid";
+    showError(dateError, birthDate, "vous êtes immortel ?")
   }
   else if (dateUser >= currentDate) {
-    showError(dateError, "Vous venez du futur ?");
-    birthDate.style.border = "3px red solid";
+    showError(dateError, birthDate, "Vous venez du futur ?");
   } else {
-    birthDate.style.border = "3px solid #279e7a";
-    dateError.style.display = "none";
+    sucess(dateError, birthDate)
     return true;
   }
 }
@@ -125,11 +121,9 @@ const checkBirthDate = () => {
 // check number of participation
 const checkPartipation = () => {
   if (isEmpty(quantity)) {
-    showError(quantityError, "Veuillez entrez un nombre");
-    quantity.style.border = "3px red solid";
+    showError(quantityError, quantity, "Veuillez entrez un nombre");
   } else {
-    quantity.style.border = "3px solid #279e7a";
-    quantityError.style.display = "none";
+    sucess(quantityError, quantity)
     return true;
   }
 }
@@ -143,9 +137,9 @@ const checkLocation = () => {
     }
   }
   if (city === "") {
-    showError(locationError, "Vous devez choisir une option.");
+    showError(locationError, false, "Vous devez choisir une option.");
   } else {
-    locationError.style.display = "none";
+    sucess(locationError, false)
     return true;
   }
 }
@@ -153,14 +147,14 @@ const checkLocation = () => {
 // check if user validate CGU
 const checkCGU = () => {
   if (!acceptCGU.checked) {
-    showError(cguError, "Vous devez vérifier que vous acceptez les termes et conditions.")
+    showError(cguError, false, "Vous devez vérifier que vous acceptez les termes et conditions.")
   } else {
-    cguError.style.display = "none";
+    sucess(cguError, false)
     return true;
   }
 }
 
-// evenement l'envoie du formulaire
+// event submit form
 form.addEventListener("submit", (e) => {
   e.preventDefault()
   // call all validation function
@@ -185,5 +179,7 @@ form.addEventListener("submit", (e) => {
   if (checkFirstName() && checkLastName() && checkEmail() && checkBirthDate() && checkPartipation() && checkLocation() && checkCGU()) {
     modalSucces.style.display = "block";
     form.style.display = "none";
+  } else {
+    console.log('failed')
   }
 });
