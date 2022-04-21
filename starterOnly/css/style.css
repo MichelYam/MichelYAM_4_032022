@@ -719,3 +719,9 @@ footer {
 .displayError {
   display: block;
 }
+
+@media screen and (max-width: 1005px) {
+  .topnav .main-navbar {
+    width: 100%;
+  }
+}

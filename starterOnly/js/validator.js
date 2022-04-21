@@ -46,7 +46,7 @@ function showMessage(input, inputBorder, message, result) {
 function showError(input, inputBorder, message) {
   return showMessage(input, inputBorder, message, false);
 }
-// call this function when all conditions return true , remove error messahe and replace the border red to green
+// call this function when all conditions return true , remove all error message and replace the border red to green
 function sucess(input, inputBorder) {
   input.classList.remove('displayError'); 
   if (inputBorder !== false) { 
