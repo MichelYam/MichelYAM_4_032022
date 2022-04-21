@@ -16,7 +16,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -43,8 +42,6 @@ img {
 .header-logo img {
   padding: 0 16px 0 0;
 }
-
-@media screen {}
 
 .header-logo {
   float: left;
@@ -86,54 +83,6 @@ img {
   display: none;
   color: #ff0000;
 
-}
-
-@media screen and (max-width: 768px) {
-  .topnav {
-    position: relative;
-  }
-
-  .topnav .header-logo {
-    width: 40%;
-  }
-
-  .topnav .header-logo img {
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  .topnav .main-navbar a {
-    display: none;
-  }
-
-  .topnav .main-navbar a.icon {
-    float: right;
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .topnav.responsive {
-    position: relative;
-  }
-
-  .topnav.responsive .main-navbar {
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  .topnav.responsive .icon {
-    position: absolute;
-  }
-
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
 }
 
 main {
@@ -431,47 +380,6 @@ input {
   border: 0;
 }
 
-/* resposonsiv mobile topnav */
-@media screen and (max-width: 425px) {
-  .topnav {
-    margin: 6.5%;
-  }
-
-  .bground {
-    background-color: transparent;
-    margin-top: 70px
-  }
-
-  .content {
-    height: 800px;
-  }
-
-  label, .text-label {
-    font-size: 14px;
-    margin: 0%;
-    margin-top: 5px;
-  }
-
-  label, .text-control {
-    margin-top: 5px;
-  }
-
-  .checkbox-label, .checkbox2-label {
-    font-size: 12px;
-  }
-
-  .checkbox2-label {
-    margin-top: 20px;
-  }
-
-  .btn-submit {
-    font-size: 14px;
-    padding: 8px 40px;
-    margin-top: 15px;
-  }
-
-}
-
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -633,6 +541,126 @@ footer {
   margin: 0 20px;
 }
 
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* handle  border, message error  */
+.bordernone {
+  border: none;
+}
+
+.border-red {
+  border: 3px solid red;
+}
+
+.border-green {
+  border: 3px solid #279e7a;
+}
+
+/* .hidden {
+  display: none;
+} */
+
+.displayError {
+  display: block;
+}
+
+/* resposonsiv mobile topnav */
+@media screen and (max-width: 425px) {
+  .topnav {
+    margin: 6.5%;
+  }
+
+  .bground {
+    background-color: transparent;
+    margin-top: 70px
+  }
+
+  .content {
+    height: 800px;
+  }
+
+  label, .text-label {
+    font-size: 14px;
+    margin: 0%;
+    margin-top: 5px;
+  }
+
+  label, .text-control {
+    margin-top: 5px;
+  }
+
+  .checkbox-label, .checkbox2-label {
+    font-size: 12px;
+  }
+
+  .checkbox2-label {
+    margin-top: 20px;
+  }
+
+  .btn-submit {
+    font-size: 14px;
+    padding: 8px 40px;
+    margin-top: 15px;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .topnav {
+    position: relative;
+  }
+
+  .topnav .header-logo {
+    width: 40%;
+  }
+
+  .topnav .header-logo img {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .topnav .main-navbar a {
+    display: none;
+  }
+
+  .topnav .main-navbar a.icon {
+    float: right;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive .main-navbar {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .topnav.responsive .icon {
+    position: absolute;
+  }
+
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
@@ -686,38 +714,6 @@ footer {
     margin-top: 15px;
     text-align: center;
   }
-}
-
-@keyframes modalopen {
-  from {
-    opacity: 0;
-    transform: translateY(-150px);
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* handle  border, message error  */
-.bordernone {
-  border: none;
-}
-
-.border-red {
-  border: 3px solid red;
-}
-
-.border-green {
-  border: 3px solid #279e7a;
-}
-
-/* .hidden {
-  display: none;
-} */
-
-.displayError {
-  display: block;
 }
 
 @media screen and (max-width: 1005px) {

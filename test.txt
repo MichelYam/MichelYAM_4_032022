@@ -1,1 +1,15 @@
 test fichier
+
+❒ un message d'erreur devrait apparaître sous la saisie qui n'est pas correcte en concervant les entrées du formulaire plutôt que de les effacer 
+
+❒ Le champ du prénom a un minimum de 2 caractères / n'est pas vide ; 
+
+❒ Le champ du nom de famille a un minimum de 2 caractères / n'est pas vide ; 
+
+❒ L'adresse électronique est valide ; 
+
+❒ La date de naissance est saisie ; 
+
+❒ Un bouton radio est sélectionné (attribut obligatoire) ; 
+
+❒ L'input du nombre de concours ne prend que des nombres (requir
