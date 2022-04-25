@@ -134,6 +134,7 @@ const checkLocation = () => {
   for (let i = 0; i < locationCity.length; i++) {
     if (locationCity[i].checked) {
       city = locationCity[i].value;
+      break;
     }
   }
   if (city === "") {
