@@ -16,6 +16,7 @@ const modalSucces = document.querySelector(".modal-confimation");
 const closeModalSucess = document.getElementById("modal-confimation__close");
 const form = document.getElementById('reserve');
 const reserveForm = document.getElementsByName("reserve")[0];
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));

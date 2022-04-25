@@ -48,8 +48,8 @@ function showError(input, inputBorder, message) {
 }
 // call this function when all conditions return true , remove all error message and replace the border red to green
 function sucess(input, inputBorder) {
-  input.classList.remove('displayError'); 
-  if (inputBorder !== false) { 
+  input.classList.remove('displayError');
+  if (inputBorder !== false) {
     inputBorder.classList.replace('border-red', 'border-green');
   }
 }
@@ -158,13 +158,13 @@ const checkCGU = () => {
 form.addEventListener("submit", (e) => {
   e.preventDefault()
   // call all validation function
-  checkFirstName()
-  checkLastName()
-  checkEmail()
-  checkBirthDate()
-  checkPartipation()
-  checkLocation()
-  checkCGU()
+  const validFirstName = checkFirstName()
+  const validLastName = checkLastName()
+  const validEmail = checkEmail()
+  const validBirthDate = checkBirthDate()
+  const validPartipation = checkPartipation()
+  const validLocation = checkLocation()
+  const validCGU = checkCGU()
 
   //after event form called,  call event listener if input change (value, select, checkbox) recall fonction to check instantly the new value
   firstName.addEventListener("input", checkFirstName);
@@ -176,10 +176,11 @@ form.addEventListener("submit", (e) => {
   acceptCGU.addEventListener("input", checkCGU);
 
   //check if all validators return true // if true display succes message modal
-  if (checkFirstName() && checkLastName() && checkEmail() && checkBirthDate() && checkPartipation() && checkLocation() && checkCGU()) {
+  if (validFirstName && validLastName && validEmail && validBirthDate && validPartipation && validLocation && validCGU) {
     modalSucces.style.display = "block";
     form.style.display = "none";
   } else {
-    console.log('failed')
+    console.log('failed');
+    return false;
   }
 });
